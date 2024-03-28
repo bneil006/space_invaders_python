@@ -1,17 +1,15 @@
 import pygame
 from game_window import *
 
-class Square():
-    def __init__(self, name = "None", width = 50, length = 50, x_location = 250, 
-                 y_location = 250, r = 100, g = 55, b = 55):
+class Square(pygame.sprite.Sprite):
+    def __init__(self, name = "None", width = 50, length = 50):
+        pygame.sprite.Sprite.__init__(self)
         self.name = name
         self.width = width
         self.length = length
-        self.__x_location = x_location
-        self.__y_location = y_location
-        self.__r = r
-        self.__g = g
-        self.__b = b
+        self.__x_location = Window.SCREEN_WIDTH / 2 - self.width / 2
+        self.__y_location = Window.SCREEN_HEIGHT / 2 - self.length / 2
+        self.rbg = (100, 55, 55)
         self.speed = 3
         self.sprint = self.speed + 2
         self.pawn = self.get_object_details()
@@ -24,7 +22,7 @@ class Square():
         return pygame.Rect((self.__x_location, self.__y_location, self.width, self.length))
     
     def instancate_object(self):
-        return pygame.draw.rect(Window.screen, (self.__r, self.__g, self.__b), self.pawn)
+        return pygame.draw.rect(Window.screen, self.rbg, self.pawn)
     
     def move_character(self):
         key = pygame.key.get_pressed()
